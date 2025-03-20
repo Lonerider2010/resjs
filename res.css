@@ -21,6 +21,13 @@ span.hinotes {
 	font-family: HieroglyphicPlain;
 }
 
+/* Dark theme */
+
+body {
+	background-color: #222;
+	color: #e6e6e6;
+}
+
 /* hack to force timely loading of fonts */
 #res_outsidescreen {
 	overflow: hidden;
