@@ -95,7 +95,7 @@ function ResContext() {
 
 	// separation between groups
 	this.opSepEm = 0.15; // normal separation for operators
-	this.boxSepEm = 0.04; // separation in box 
+	this.boxSepEm = 0.04; // separation in box
 	this.paddingFactor = 1.0; // as factor of unpadded separation between groups
 	this.paddingAllowed = false;
 
@@ -235,7 +235,7 @@ function(ctx, w, h) {
 	var external = new Array(w);
 	for (var x = 0; x < w; x++) {
 		external[x] = new Array(h);
-		for (var y = 0; y < h; y++) 
+		for (var y = 0; y < h; y++)
 			external[x][y] = false;
 	}
 	if (w === 0 || h === 0)
@@ -254,12 +254,12 @@ function(ctx, w, h) {
 	var changed = true;
 	while (changed) {
 		changed = false;
-		for (var y = 1; y < h-1; y++) 
-			for (var x = 1; x < w-1; x++) 
+		for (var y = 1; y < h-1; y++)
+			for (var x = 1; x < w-1; x++)
 				if (external[x][y-1])
 					changed |= ResCanvas.externalPixelsSideways(data, w, x, y, external);
-		for (var y = h-2; y > 0; y--) 
-			for (var x = 1; x < w-1; x++) 
+		for (var y = h-2; y > 0; y--)
+			for (var x = 1; x < w-1; x++)
 				if (external[x][y+1])
 					changed |= ResCanvas.externalPixelsSideways(data, w, x, y, external);
 	}
@@ -267,26 +267,26 @@ function(ctx, w, h) {
 };
 ResCanvas.externalPixelsSideways =
 function(data, w, x, y, external) {
-	if (external[x][y] || ResCanvas.isNotBlank(data, w, x, y)) 
+	if (external[x][y] || ResCanvas.isNotBlank(data, w, x, y))
 		return false;
-	external[x][y] = true; 
+	external[x][y] = true;
 	for (var x2 = x-1; x2 >= 1; x2--) {
-		if (!external[x2][y] && !ResCanvas.isNotBlank(data, w, x2, y)) 
-			external[x2][y] = true; 
+		if (!external[x2][y] && !ResCanvas.isNotBlank(data, w, x2, y))
+			external[x2][y] = true;
 		else
 			break;
 	}
 	for (var x2 = x+1; x2 < w-1; x2++) {
-		if (!external[x2][y] && !ResCanvas.isNotBlank(data, w, x2, y)) 
-			external[x2][y] = true; 
+		if (!external[x2][y] && !ResCanvas.isNotBlank(data, w, x2, y))
+			external[x2][y] = true;
 		else
 			break;
 	}
 	return true;
 };
 
-// Erase pixels that are not valid. 
-// valids: 2-dimensional boolean array 
+// Erase pixels that are not valid.
+// valids: 2-dimensional boolean array
 ResCanvas.erasePixels =
 function(ctx, w, h, valids) {
 	var white = ctx.createImageData(1,1);
@@ -295,9 +295,9 @@ function(ctx, w, h, valids) {
 	data[1] = 0;
 	data[2] = 0;
 	data[3] = 0;
-	for (var x = 0; x < w; x++) 
-		for (var y = 0; y < h; y++) 
-			if (!valids[x][y]) 
+	for (var x = 0; x < w; x++)
+		for (var y = 0; y < h; y++)
+			if (!valids[x][y])
 				ctx.putImageData(white, x, y);
 };
 
@@ -370,7 +370,7 @@ function(ctx, x, y, testRect, str, size, xScale, font, color, rotate, mirror) {
 	ctx.textBaseline = "alphabetic";
 	var width = Math.max(1, Math.round(ctx.measureText(str).width));
 	var height = Math.max(1, Math.round(size));
-	if (rotate === 0 && !mirror && xScale === 1) 
+	if (rotate === 0 && !mirror && xScale === 1)
 		ctx.fillText(str, x - testRect.x, y - testRect.y + testRect.height);
 	else {
 		var l = testRect.x;
@@ -455,8 +455,8 @@ function(ctx1, ctx2, w1, w2, h, sepInit, sepMax) {
 	canvas.width = w;
 	canvas.height = h;
 	var ctx = canvas.getContext("2d");
-	for (var y = 0; y < h; y++) 
-		for (var x = 0; x < w2; x++) 
+	for (var y = 0; y < h; y++)
+		for (var x = 0; x < w2; x++)
 			if (ResCanvas.isNotBlank(data2, w2, x, y)) {
 				ctx.fillStyle = "black";
 				ctx.beginPath();
@@ -487,8 +487,8 @@ function(ctx1, ctx2, w, h1, h2, sepInit, sepMax) {
 	canvas.width = w;
 	canvas.height = h;
 	var ctx = canvas.getContext("2d");
-	for (var x = 0; x < w; x++) 
-		for (var y = 0; y < h2; y++) 
+	for (var x = 0; x < w; x++)
+		for (var y = 0; y < h2; y++)
 			if (ResCanvas.isNotBlank(data2, w, x, y)) {
 				ctx.beginPath();
 				ctx.arc(x, sepInit + y, Math.max(0.5,sepInit), 1.0*Math.PI, 2.0*Math.PI);
@@ -533,7 +533,7 @@ function(ctx1, ctx2, w, h) {
 	return true;
 };
 
-// Internal space in horizontal box. 
+// Internal space in horizontal box.
 ResCanvas.internalHor =
 function(ctx, w, h) {
 	var data = w > 0 && h > 0 ? ctx.getImageData(0, 0, w, h).data : null;
@@ -591,7 +591,7 @@ function(ctx, w, h, rect, width) {
 			n++;
 			if (n >= width)
 				return new ResPoint(x, rect.y);
-		} else 
+		} else
 			n = 0;
 	}
 	return false;
@@ -611,7 +611,7 @@ function(ctx, w, h, rect, width) {
 			n++;
 			if (n >= width)
 				return new ResPoint(x-width, rect.y);
-		} else 
+		} else
 			n = 0;
 	}
 	return false;
@@ -631,7 +631,7 @@ function(ctx, w, h, rect, height) {
 			n++;
 			if (n >= height)
 				return new ResPoint(rect.x, y);
-		} else 
+		} else
 			n = 0;
 	}
 	return false;
@@ -651,7 +651,7 @@ function(ctx, w, h, rect, height) {
 			n++;
 			if (n >= height)
 				return new ResPoint(rect.x, y-height);
-		} else 
+		} else
 			n = 0;
 	}
 	return false;
@@ -660,7 +660,7 @@ function(ctx, w, h, rect, height) {
 /////////////////////////////////////////////////////////////////////////////
 // Shading.
 
-// Maps x coordinate (on x axis) to list of pairs of x coordinates 
+// Maps x coordinate (on x axis) to list of pairs of x coordinates
 // each delimiting a line segment of shading (hatching).
 // context: ResContext
 // mirror: boolean (whether mirrored)
@@ -913,7 +913,7 @@ function() {
 			this.string.charAt(this.pos).replace(/^\s+|\s+$/gm,'').length !== 0)
 		this.pos++;
 };
-ParseBuffer.prototype.readToEnd = 
+ParseBuffer.prototype.readToEnd =
 function() {
 	while (!this.isEmpty() && this.string.charAt(this.pos) !== 'e')
 		this.pos++;
@@ -1069,11 +1069,11 @@ function(resLite, buffer) {
 	if (!buffer.readSingleChar("e")) {
 		console.log("RESlite missing end");
 		return false;
-	} else 
+	} else
 		return true;
 };
 
-// Parse zero or more groups. 
+// Parse zero or more groups.
 // return: pointer to list, possibly null
 ResLite.parseGroups =
 function(buffer) {
@@ -1104,7 +1104,7 @@ function(buffer) {
 	return groups;
 };
 
-// Parse zero or more expressions. 
+// Parse zero or more expressions.
 // return: pointer to list, possibly null.
 ResLite.parseExprs =
 function(buffer) {
@@ -1202,7 +1202,7 @@ function(buffer) {
 	return pair;
 };
 
-// Parse zero or more notes. 
+// Parse zero or more notes.
 // return: pointer to list, possibly null
 ResLite.parseNotes =
 function(buffer) {
@@ -1237,7 +1237,7 @@ function(buffer) {
 	return notes;
 };
 
-// Parse zero or more shades. 
+// Parse zero or more shades.
 // return: pointer to list, possibly null
 ResLite.parseShades =
 function(buffer) {
@@ -1318,23 +1318,23 @@ function() {
 	return this.original.isLR() && this.resContext.dir === undefined ||
 		this.resContext === "lr";
 };
-ResLiteDivision.prototype.getWidthMilEm = 
+ResLiteDivision.prototype.getWidthMilEm =
 function() {
 	var pad = this.initialNumber > 1 ? this.padMilEm * (this.initialNumber-1) : 0;
 	return this.isH() ? this.initialSizeMilEm + pad : this.original.sizeMilEm;
 };
-ResLiteDivision.prototype.getHeightMilEm = 
+ResLiteDivision.prototype.getHeightMilEm =
 function() {
 	var pad = this.initialNumber > 1 ? this.padMilEm * (this.initialNumber-1) : 0;
 	return this.isH() ? this.original.sizeMilEm : this.initialSizeMilEm + pad;
 };
-ResLiteDivision.prototype.getWidthPx = 
+ResLiteDivision.prototype.getWidthPx =
 function() {
-	return Math.round(this.resContext.milEmToPx(this.getWidthMilEm())); 
+	return Math.round(this.resContext.milEmToPx(this.getWidthMilEm()));
 };
 ResLiteDivision.prototype.getHeightPx =
 function() {
-	return Math.round(this.resContext.milEmToPx(this.getHeightMilEm())); 
+	return Math.round(this.resContext.milEmToPx(this.getHeightMilEm()));
 };
 // Process input until length limit is reached.
 // Limit can be infinite (= no limit).
@@ -1384,9 +1384,9 @@ function(div, lenMilEm) {
 /////////////////////////////////////////////////////////////
 // Rendering.
 
-// Render with initial margin. If things were printed outside margin 
+// Render with initial margin. If things were printed outside margin
 // (so if margin became bigger) do again.
-ResLiteDivision.prototype.render = 
+ResLiteDivision.prototype.render =
 function(canvas) {
 	this.env = new ResEnv(this.resContext);
 	while (true) {
@@ -1396,6 +1396,7 @@ function(canvas) {
 		canvas.height = this.env.totalHeightPx;
 		this.ctx = canvas.getContext("2d");
 		this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+		this.ctx.filter = "invert(1)";
 		if (!this.isLR()) {
 			this.ctx.translate(canvas.width, 0);
 			this.ctx.scale(-1, 1);
@@ -1409,11 +1410,11 @@ function(canvas) {
 			break;
 		} else
 			this.env.updateMargins();
-	}		
+	}
 };
 ResLiteDivision.prototype.renderGroups =
 function(groups, n, p) {
-	if (n <= 0 || groups === null) 
+	if (n <= 0 || groups === null)
 		return;
 	var lenPx = this.resContext.milEmToPx(groups.lengthMilEm);
 	var rect = this.makeRect(p, lenPx);
@@ -1433,7 +1434,7 @@ function(exprs, rect) {
 		return;
 	if (exprs instanceof ResLiteGlyph)
 		this.renderGlyph(exprs, rect);
-	else 
+	else
 		this.renderPair(exprs, rect);
 	this.renderExprs(exprs.tl, rect);
 };
@@ -1493,10 +1494,10 @@ function(glyph, rect) {
 	var y = rect.y + this.resContext.milEmToPx(glyph.yMilEm);
 	var gRect = ResCanvas.glyphRect(str, size, 1, font, 0, false);
 	if (glyph.rotate === 0 && !glyph.mirror && glyph.xscaleMil === glyph.yscaleMil) {
-		var printedRect = new ResRectangle(x - gRect.width/2, y - gRect.height/2, 
+		var printedRect = new ResRectangle(x - gRect.width/2, y - gRect.height/2,
 					gRect.width, gRect.height);
 		var cutOut = this.cutOutRect(glyph, printedRect);
-		if (cutOut === undefined) 
+		if (cutOut === undefined)
 			this.env.ensureRect(printedRect);
 		else {
 			this.ctx.beginPath();
@@ -1515,7 +1516,7 @@ function(glyph, rect) {
 		var vDiff = (t-b) / 2;
 		var xDiff = -gRect.x - gRect.width/2;
 		var yDiff = -gRect.y + gRect.height/2;
-		var printedRect = new ResRectangle(x-hDiff - rotRect.width/2, y-vDiff - rotRect.height/2, 
+		var printedRect = new ResRectangle(x-hDiff - rotRect.width/2, y-vDiff - rotRect.height/2,
 						rotRect.width, rotRect.height);
 		var cutOut = this.cutOutRect(glyph, printedRect);
 		if (cutOut === undefined)
@@ -1560,7 +1561,7 @@ function(notes, rect) {
 		this.ctx.scale(-1, 1);
 	this.ctx.fillText(notes.string, xDiff, yDiff);
 	this.ctx.restore();
-	this.env.ensureRect(new ResRectangle(x - gRect.width/2, y - gRect.height/2, 
+	this.env.ensureRect(new ResRectangle(x - gRect.width/2, y - gRect.height/2,
 				gRect.width, gRect.height));
 };
 ResLiteDivision.prototype.renderShades =
@@ -1595,7 +1596,7 @@ function(rect, adv) {
 };
 ResLiteDivision.prototype.cutOutRect =
 function(glyph, rect) {
-	if (glyph.xMinMil === 0 && glyph.yMinMil === 0 && 
+	if (glyph.xMinMil === 0 && glyph.yMinMil === 0 &&
 			glyph.widthMil === 1000 && glyph.heightMil === 1000)
 		return undefined;
 	var subX = rect.x + glyph.xMinMil * rect.width / 1000;
@@ -1615,7 +1616,7 @@ function ResWeb() {
 	var canvass = document.getElementsByTagName("canvas");
 	for (var i = 0; i < canvass.length; i++) {
 		var canvas = canvass[i];
-		if (canvas.className.match(/\bres\b/)) 
+		if (canvas.className.match(/\bres\b/))
 			ResWeb.makeSometime(canvas);
 	}
 }
@@ -1741,7 +1742,7 @@ function(elem) {
 			var code = span.firstChild.nodeValue;
 			var key = ResContext.unMnemonic(code);
 			key = ResContext.hieroPoints[key];
-			if (key) 
+			if (key)
 				span.innerHTML = String.fromCharCode(key);
 		}
 	}
