@@ -1396,7 +1396,8 @@ function(canvas) {
 		canvas.height = this.env.totalHeightPx;
 		this.ctx = canvas.getContext("2d");
 		this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-		this.ctx.filter = "invert(1)";		if (!this.isLR()) {
+		this.ctx.filter = "invert(1)";
+		if (!this.isLR()) {
 			this.ctx.translate(canvas.width, 0);
 			this.ctx.scale(-1, 1);
 		}
